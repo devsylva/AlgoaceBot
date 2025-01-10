@@ -1,3 +1,5 @@
+from asgiref.sync import sync_to_async
+
 
 @sync_to_async
 def getDepositAddress(currency):
@@ -16,3 +18,22 @@ def getDepositAddress(currency):
         return None
 
 
+@sync_to_async
+def getTransactionhistory(user, limit=10):
+    return Transaction.objects.filter(user=user).order_by('-created_at')[:limit]
+
+
+@sync_to_async
+def getFaqCategories():
+    """Get all active FAQ categories"""
+    return FAQ.objects.filter(
+        is_active=True
+    ).values('category').distinct()
+
+@sync_to_async
+def getCategoryFaqs(category):
+    """Get all FAQs for a category"""
+    return FAQ.objects.filter(
+        category=category,
+        is_active=True
+    ).order_by('order')

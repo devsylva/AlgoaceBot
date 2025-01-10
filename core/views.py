@@ -8,7 +8,7 @@ import json
 from .keyboards import get_main_menu, get_deposit_menu
 from django.http import HttpResponse
 from asgiref.sync import sync_to_async
-from .utils import getDepositAddress
+from .utils import getDepositAddress, getTransactionhistory, getCategoryFaqs, getFaqCategories
 
 # Create your views here.
 def landingPage(request):
@@ -170,6 +170,83 @@ async def handle_callback(update: Update):
                 reply_markup=InlineKeyboardMarkup(keyboard)
             )
          
+        elif query.data  == "history":
+            transactions = await getTransactionhistory(telegram_user)
+            
+            if not transactions:
+                await query.message.reply_text(
+                    "No transaction history found.",
+                    reply_markup=get_main_menu()
+                )
+                return
+
+            text = "*📊 Recent Transactions:*\n\n"
+            for tx in transactions[:10]:  # Show last 10 transactions
+                status_emoji = {
+                    'pending': '⏳',
+                    'completed': '✅',
+                    'failed': '❌',
+                    'cancelled': '🚫'
+                }.get(tx.status, '❓')
+                
+                text += (
+                    f"{status_emoji} *{tx.transaction_type.title()}*\n"
+                    f"Amount: {tx.amount} {tx.currency}\n"
+                    f"Status: {tx.status.title()}\n"
+                    f"Date: {tx.created_at.strftime('%Y-%m-%d %H:%M')}\n\n"
+                )
+            
+            keyboard = [
+                # [InlineKeyboardButton("View More", callback_data="history_more")],
+                [InlineKeyboardButton("↩️ Back to Menu", callback_data="main_menu")]
+            ]
+            
+            await query.message.reply_text(
+                text,
+                parse_mode='Markdown',
+                reply_markup=InlineKeyboardMarkup(keyboard)
+            )
+
+        elif query.data == "faq":
+            categories = await getFaqCategories()
+            
+            text = "*❓ Frequently Asked Questions*\n\nSelect a category:"
+            keyboard = []
+            
+            for category in categories:
+                keyboard.append([InlineKeyboardButton(
+                    category['category'].title(),
+                    callback_data=f"faq_{category['category']}"
+                )])
+            
+            keyboard.append([InlineKeyboardButton("↩️ Back to Menu", callback_data="main_menu")])
+            
+            await query.message.reply_text(
+                text,
+                parse_mode='Markdown',
+                reply_markup=InlineKeyboardMarkup(keyboard)
+            )
+
+        elif query.data.startswith("faq_"):
+            category = query.data.split('_')[1]
+            faqs = await getCategoryFaqs(category)
+            
+            text = f"*{category.title()} FAQ:*\n\n"
+            for faq in faqs:
+                text += f"*Q: {faq.question}*\n"
+                text += f"A: {faq.answer}\n\n"
+            
+            keyboard = [
+                [InlineKeyboardButton("↩️ Back to FAQ", callback_data="faq")],
+                [InlineKeyboardButton("📞 Contact Support", callback_data="support")]
+            ]
+            
+            await query.message.reply_text(
+                text,
+                parse_mode='Markdown',
+                reply_markup=InlineKeyboardMarkup(keyboard)
+            )
+
 
     except Exception as e:
         print(f"Error in callback: {e}")
