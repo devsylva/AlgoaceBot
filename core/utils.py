@@ -1,5 +1,5 @@
 
-
+@sync_to_async
 def getDepositAddress(currency):
     try:
         address = CryptoAddress.objects.get(currency=currency, is_active=True)
@@ -14,3 +14,5 @@ def getDepositAddress(currency):
             return None
     except CryptoAddress.DoesNotExist:
         return None
+
+

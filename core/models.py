@@ -59,3 +59,52 @@ class CryptoAddress(models.Model):
 
     def __str__(self):
         return f"{self.get_currency_display()} - {self.address[:10]}..."
+
+
+class Transaction(models.Model):
+    TRANSACTION_TYPES = [
+        ('deposit', 'Deposit'),
+        ('withdrawal', 'Withdrawal')
+    ]
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+        ('failed', 'Failed'),
+        ('cancelled', 'Cancelled')
+    ]
+
+    user = models.ForeignKey(TelegramUser, on_delete=models.CASCADE)
+    transaction_type = models.CharField(max_length=20, choices=TRANSACTION_TYPES)
+    currency = models.CharField(max_length=20)
+    amount = models.DecimalField(max_digits=18, decimal_places=8)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    address = models.CharField(max_length=255)  # For withdrawals
+    tx_hash = models.CharField(max_length=255, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.transaction_type} - {self.amount} {self.currency}"
+
+
+# FAQ model for easy management
+class FAQ(models.Model):
+    CATEGORY_CHOICES = [
+        ('general', 'General'),
+        ('trading', 'Trading'),
+        ('deposit', 'Deposits'),
+        ('withdrawal', 'Withdrawals'),
+        ('security', 'Security')
+    ]
+
+    category = models.CharField(max_length=20, choices=CATEGORY_CHOICES)
+    question = models.CharField(max_length=255)
+    answer = models.TextField()
+    order = models.IntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['category', 'order']
+
+    def __str__(self):
+        return f"{self.category}: {self.question}"

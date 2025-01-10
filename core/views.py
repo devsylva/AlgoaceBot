@@ -101,12 +101,6 @@ async def handle_callback(update: Update):
         elif query.data == "deposit":
             # Add your deposit logic here
             text = "📥 *Deposit Methods*\n\nChoose your preferred deposit method:"
-            # deposit_keyboard = [
-            #     [InlineKeyboardButton("BTC", callback_data="deposit_btc"),
-            #      InlineKeyboardButton("ETH", callback_data="deposit_eth")],
-            #     [InlineKeyboardButton("USDT", callback_data="deposit_usdt"),
-            #      InlineKeyboardButton("Back to Menu", callback_data="main_menu")]
-            # ]
             await query.message.reply_text(
                 text,
                 parse_mode='Markdown',
@@ -158,7 +152,24 @@ async def handle_callback(update: Update):
                     reply_markup=get_main_menu()
                 )
 
-        
+        elif query.data == "support":
+            support_username = "@AlgoAceSupport"
+            text = (
+                "🛟 *Need Help?*\n\n"
+                f"Contact our support team directly: {support_username}\n\n"
+                "Please include:\n"
+                "• Your issue description\n"
+                "• Transaction ID (if applicable)\n"
+                "• Screenshots (if relevant)\n\n"
+                "Our team typically responds within 24 hours."
+            )
+            keyboard = [[InlineKeyboardButton("Contact Support", url=f"https://t.me/{support_username[1:]}")]]
+            await query.message.reply_text(
+                text,
+                parse_mode='Markdown',
+                reply_markup=InlineKeyboardMarkup(keyboard)
+            )
+         
 
     except Exception as e:
         print(f"Error in callback: {e}")
