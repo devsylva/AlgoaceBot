@@ -87,9 +87,13 @@ async def start(update: Update):
 async def handle_callback(update: Update):
     """Handle callback queries from inline keyboard"""
     query = update.callback_query
-    await query.answer()  # Answer the callback query to remove loading state
+    
 
     try:
+        await query.answer()  # Answer the callback query to remove loading state
+        print(f"Processing callback: {query.data}")
+
+
         # Get or register user
         telegram_user = await register_user(update)
 
@@ -261,7 +265,7 @@ async def telegram_webhook(request):
         try:
             print("Received webhook request")  # Debug log
             update_data = json.loads(request.body.decode('utf-8'))
-            print(f"Update data: {update_data}")  # Debug log
+            # print(f"Update data: {update_data}")  # Debug log
             
             # Create update object
             update = Update.de_json(update_data, bot)

@@ -9,7 +9,7 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         async def setup():
             bot = Bot(token=settings.TELEGRAM_TOKEN)
-            webhook_url = f"{settings.TELEGRAM_WEBHOOK_URL}{settings.TELEGRAM_WEBHOOK_PATH}"
+            webhook_url = f"{settings.TELEGRAM_WEBHOOK_URL}/{settings.TELEGRAM_WEBHOOK_PATH}"
             
             # Remove any existing webhook
             await bot.delete_webhook()
