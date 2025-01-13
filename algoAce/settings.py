@@ -29,7 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    'b263-102-90-103-138.ngrok-free.app',
+    'https://algoace.live/',
 ]
 
 
