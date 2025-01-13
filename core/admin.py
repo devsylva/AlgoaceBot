@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import TelegramUser, CryptoAddress
+from .models import TelegramUser, CryptoAddress, FAQ, Transaction
 
 # Register your models here.
 class TelegramUserAdmin(admin.ModelAdmin):
@@ -13,3 +13,5 @@ class TelegramUserAdmin(admin.ModelAdmin):
 
 admin.site.register(TelegramUser, TelegramUserAdmin)
 admin.site.register(CryptoAddress)
+admin.site.register(FAQ)
+admin.site.register(Transaction)

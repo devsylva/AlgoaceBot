@@ -29,13 +29,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'localhost',
-    '8765-102-90-103-138.ngrok-free.app',
+    'b263-102-90-103-138.ngrok-free.app',
 ]
 
 
-webhook_url = os.getenv('TELEGRAM_WEBHOOK_URL')
-if webhook_url:
-    ALLOWED_HOSTS += webhook_url.removesuffix('/').split('https://')[1:]
 
 
 # Application definition
