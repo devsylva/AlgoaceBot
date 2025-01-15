@@ -1,383 +1,495 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AlgoAce - Professional Crypto Trading Solutions</title>
     <style>
-        /* Reset and base styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      /* Reset and base styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            color: #333;
-        }
+      body {
+        font-family: "Arial", sans-serif;
+        line-height: 1.6;
+        color: #333;
+      }
 
-        /* Navigation styles */
-        nav {
-            background: #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            padding: 1rem 0;
-        }
+      /* Navigation styles */
+      nav {
+        background: #fff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 1rem 0;
+      }
 
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .logo {
-            font-size: 24px;
-            font-weight: bold;
-            color: #2563eb;
-        }
+      .logo {
+        font-size: 24px;
+        font-weight: bold;
+        color: #2563eb;
+      }
 
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #4b5563;
+        transition: color 0.3s;
+      }
+
+      .nav-links a:hover {
+        color: #2563eb;
+      }
+
+      /* Hero section */
+      .hero {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+        color: white;
+        padding: 6rem 20px;
+        text-align: center;
+      }
+
+      .hero-content {
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .hero h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+        margin-bottom: 2rem;
+      }
+
+      /* Button styles */
+      .button {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+        cursor: pointer;
+      }
+
+      .button-primary {
+        background: white;
+        color: #2563eb;
+      }
+
+      .button-primary:hover {
+        background: #f3f4f6;
+      }
+
+      /* Features section */
+      .features {
+        padding: 4rem 20px;
+        background: white;
+      }
+
+      .section-title {
+        text-align: center;
+        font-size: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .feature-card {
+        padding: 2rem;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+      }
+
+      .feature-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+      }
+
+      /* Services section */
+      .services {
+        padding: 4rem 20px;
+        background: #f9fafb;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .service-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Stats section */
+      .stats {
+        padding: 4rem 20px;
+        background: white;
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .stat-item .number {
+        font-size: 2.5rem;
+        font-weight: bold;
+        color: #2563eb;
+        margin-bottom: 0.5rem;
+      }
+
+      /* CTA section */
+      .cta {
+        background: #2563eb;
+        color: white;
+        padding: 4rem 20px;
+        text-align: center;
+      }
+
+      /* Footer */
+      footer {
+        background: #1f2937;
+        color: white;
+        padding: 4rem 20px;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      .footer-column h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-column ul {
+        list-style: none;
+      }
+
+      .footer-column ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-column a {
+        color: #9ca3af;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column a:hover {
+        color: white;
+      }
+
+      .footer-bottom {
+        max-width: 1200px;
+        margin: 0 auto;
+        text-align: center;
+        padding-top: 2rem;
+        margin-top: 2rem;
+        border-top: 1px solid #374151;
+        color: #9ca3af;
+      }
+
+      /* Responsive design */
+      @media (max-width: 768px) {
         .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #4b5563;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #2563eb;
-        }
-
-        /* Hero section */
-        .hero {
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            color: white;
-            padding: 6rem 20px;
-            text-align: center;
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
+          display: none;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
+          font-size: 2.5rem;
         }
 
-        .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-        }
-
-        /* Button styles */
-        .button {
-            display: inline-block;
-            padding: 0.75rem 2rem;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s;
-            cursor: pointer;
-        }
-
-        .button-primary {
-            background: white;
-            color: #2563eb;
-        }
-
-        .button-primary:hover {
-            background: #f3f4f6;
-        }
-
-        /* Features section */
-        .features {
-            padding: 4rem 20px;
-            background: white;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            padding: 2rem;
-            border: 1px solid #e5e7eb;
-            border-radius: 8px;
-        }
-
-        .feature-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Services section */
-        .services {
-            padding: 4rem 20px;
-            background: #f9fafb;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .service-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-
-        /* Stats section */
-        .stats {
-            padding: 4rem 20px;
-            background: white;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .stat-item .number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #2563eb;
-            margin-bottom: 0.5rem;
-        }
-
-        /* CTA section */
-        .cta {
-            background: #2563eb;
-            color: white;
-            padding: 4rem 20px;
-            text-align: center;
-        }
-
-        /* Footer */
-        footer {
-            background: #1f2937;
-            color: white;
-            padding: 4rem 20px;
-        }
-
+        .features-grid,
+        .services-grid,
+        .stats-grid,
         .footer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
+          grid-template-columns: 1fr;
         }
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+        font-size: 24px;
+        font-weight: bold;
+        color: #2563eb;
+      }
 
-        .footer-column h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-        }
+      .logo svg {
+        display: block;
+      }
 
-        .footer-column ul {
-            list-style: none;
-        }
+      .logo span {
+        margin-left: 8px;
+      }
+      .logo {
+        display: flex;
+        align-items: center;
+      }
 
-        .footer-column ul li {
-            margin-bottom: 0.5rem;
-        }
+      .logo svg {
+        display: block;
+      }
 
-        .footer-column a {
-            color: #9ca3af;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-column a:hover {
-            color: white;
-        }
-
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 2rem;
-            border-top: 1px solid #374151;
-            color: #9ca3af;
-        }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .features-grid,
-            .services-grid,
-            .stats-grid,
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+      .logo span {
+        margin-left: 8px;
+        font-size: 24px;
+        font-weight: bold;
+        font-family: serif;
+        color: #000000; /* Changed to black to match the provided logo */
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <!-- Navigation -->
     <nav>
-        <div class="nav-container">
-            <div class="logo">AlgoAce</div>
-            <div class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#services">Services</a>
-                <a href="#about">About</a>
-                <a href="#contact">Contact</a>
-                <a href="#" class="button button-primary">Get Started</a>
-            </div>
+      <div class="nav-container">
+        <div class="logo">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="40"
+            viewBox="0 0 100 100"
+            style="vertical-align: middle"
+          >
+            <path
+              d="M20 80 L50 10 L80 80"
+              fill="none"
+              stroke="#008000"
+              stroke-width="12"
+              stroke-linecap="round"
+            />
+            <path
+              d="M65 80 L80 80"
+              stroke="#FF0000"
+              stroke-width="12"
+              stroke-linecap="round"
+            />
+
+            <line
+              x1="40"
+              y1="45"
+              x2="40"
+              y2="55"
+              stroke="#FF0000"
+              stroke-width="2"
+            />
+            <rect x="38" y="45" width="4" height="6" fill="#FF0000" />
+
+            <line
+              x1="45"
+              y1="43"
+              x2="45"
+              y2="57"
+              stroke="#008000"
+              stroke-width="2"
+            />
+            <rect x="43" y="48" width="4" height="9" fill="#008000" />
+
+            <line
+              x1="50"
+              y1="45"
+              x2="50"
+              y2="55"
+              stroke="#FF0000"
+              stroke-width="2"
+            />
+            <rect x="48" y="49" width="4" height="6" fill="#FF0000" />
+
+            <line
+              x1="55"
+              y1="43"
+              x2="55"
+              y2="57"
+              stroke="#008000"
+              stroke-width="2"
+            />
+            <rect x="53" y="43" width="4" height="9" fill="#008000" />
+          </svg>
+          <span style="margin-left: 8px; font-family: serif">AlgoAce</span>
         </div>
+        <div class="nav-links">
+          <a href="#features">Features</a>
+          <a href="#services">Services</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+          <a href="https://t.me/AllgoAce_Bot" class="button button-primary"
+            >Get Started</a
+          >
+        </div>
+      </div>
     </nav>
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-content">
-            <h1>Smart Crypto Trading Solutions</h1>
-            <p>Advanced algorithms and expert strategies for optimal trading performance</p>
-            <a href="#" class="button button-primary">Start Trading</a>
-        </div>
+      <div class="hero-content">
+        <h1>Smart Crypto Trading Solutions</h1>
+        <p>
+          Advanced algorithms and expert strategies for optimal trading
+          performance
+        </p>
+        <a href="https://t.me/AllgoAce_Bot" class="button button-primary"
+          >Start Trading</a
+        >
+      </div>
     </section>
 
     <!-- Features Section -->
     <section id="features" class="features">
-        <h2 class="section-title">Why Choose AlgoAce</h2>
-        <div class="features-grid">
-            <div class="feature-card">
-                <h3>Copy Trading</h3>
-                <p>Mirror successful traders' strategies automatically and benefit from their expertise.</p>
-            </div>
-            <div class="feature-card">
-                <h3>AI-Powered Analysis</h3>
-                <p>Advanced algorithms analyze market trends and identify profitable opportunities.</p>
-            </div>
-            <div class="feature-card">
-                <h3>Risk Management</h3>
-                <p>Sophisticated risk management systems to protect your investments.</p>
-            </div>
+      <h2 class="section-title">Why Choose AlgoAce</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <h3>Copy Trading</h3>
+          <p>
+            Mirror successful traders' strategies automatically and benefit from
+            their expertise.
+          </p>
         </div>
+        <div class="feature-card">
+          <h3>AI-Powered Analysis</h3>
+          <p>
+            Advanced algorithms analyze market trends and identify profitable
+            opportunities.
+          </p>
+        </div>
+        <div class="feature-card">
+          <h3>Risk Management</h3>
+          <p>
+            Sophisticated risk management systems to protect your investments.
+          </p>
+        </div>
+      </div>
     </section>
 
     <!-- Services Section -->
     <section id="services" class="services">
-        <h2 class="section-title">Our Services</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <h3>Automated Trading</h3>
-                <ul>
-                    <li>24/7 automated trading execution</li>
-                    <li>Custom strategy development</li>
-                    <li>Real-time market monitoring</li>
-                </ul>
-            </div>
-            <div class="service-card">
-                <h3>Copy Trading Platform</h3>
-                <ul>
-                    <li>Follow top performing traders</li>
-                    <li>Transparent performance metrics</li>
-                    <li>Customizable allocation settings</li>
-                </ul>
-            </div>
+      <h2 class="section-title">Our Services</h2>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3>Automated Trading</h3>
+          <ul>
+            <li>24/7 automated trading execution</li>
+            <li>Custom strategy development</li>
+            <li>Real-time market monitoring</li>
+          </ul>
         </div>
+        <div class="service-card">
+          <h3>Copy Trading Platform</h3>
+          <ul>
+            <li>Follow top performing traders</li>
+            <li>Transparent performance metrics</li>
+            <li>Customizable allocation settings</li>
+          </ul>
+        </div>
+      </div>
     </section>
 
     <!-- Stats Section -->
     <section class="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <div class="number">$500M+</div>
-                <div>Trading Volume</div>
-            </div>
-            <div class="stat-item">
-                <div class="number">50K+</div>
-                <div>Active Users</div>
-            </div>
-            <div class="stat-item">
-                <div class="number">99.9%</div>
-                <div>Uptime</div>
-            </div>
-            <div class="stat-item">
-                <div class="number">24/7</div>
-                <div>Support</div>
-            </div>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="number">$500M+</div>
+          <div>Trading Volume</div>
         </div>
+        <div class="stat-item">
+          <div class="number">50K+</div>
+          <div>Active Users</div>
+        </div>
+        <div class="stat-item">
+          <div class="number">99.9%</div>
+          <div>Uptime</div>
+        </div>
+        <div class="stat-item">
+          <div class="number">24/7</div>
+          <div>Support</div>
+        </div>
+      </div>
     </section>
 
     <!-- CTA Section -->
     <section class="cta">
-        <h2>Ready to Start Trading?</h2>
-        <p>Join thousands of successful traders on our platform</p>
-        <a href="#" class="button button-primary">Create Account</a>
+      <h2>Ready to Start Trading?</h2>
+      <p>Join thousands of successful traders on our platform</p>
+      <a href="#" class="button button-primary">Create Account</a>
     </section>
 
     <!-- Footer -->
     <footer>
-        <div class="footer-grid">
-            <div class="footer-column">
-                <h3>AlgoAce</h3>
-                <p>Professional crypto trading solutions powered by advanced algorithms.</p>
-            </div>
-            <div class="footer-column">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Legal</h3>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Risk Disclosure</a></li>
-                </ul>
-            </div>
-            <div class="footer-column">
-                <h3>Contact</h3>
-                <ul>
-                    <li>support@algoace.com</li>
-                    <li>+1 (555) 123-4567</li>
-                </ul>
-            </div>
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h3>AlgoAce</h3>
+          <p>
+            Professional crypto trading solutions powered by advanced
+            algorithms.
+          </p>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 AlgoAce. All rights reserved.</p>
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
         </div>
+        <div class="footer-column">
+          <h3>Legal</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Risk Disclosure</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Contact</h3>
+          <ul>
+            <li>support@algoace.com</li>
+            <li>+1 (555) 123-4567</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 AlgoAce. All rights reserved.</p>
+      </div>
     </footer>
-</body>
+  </body>
 </html>

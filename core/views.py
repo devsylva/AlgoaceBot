@@ -88,6 +88,16 @@ def get_user_balance(telegram_user):
         logger.error(f"Error getting user balance: {str(e)}", exc_info=True)
         raise
 
+@sync_to_async
+def get_user_profit(telegram_user):
+    """Async wrapper for getting user profit"""
+    try:
+        telegram_user.refresh_from_db()
+        return telegram_user.profit
+    except Exception as e:
+        logger.error(f"Error getting user profit: {str(e)}", exc_info=True)
+        raise
+
 async def register_user(update: Update):
     """Register or update user"""
     try:
@@ -151,6 +161,15 @@ async def handle_callback(update: Update):
         if query.data == "balance":
             balance = await get_user_balance(telegram_user)
             text = f"💰 *Your Current Balance*\n\nAvailable: ${balance:.2f} USDT"
+            await query.message.edit_text(
+                text,
+                parse_mode='Markdown',
+                reply_markup=get_main_menu()
+            )
+
+        elif query.data == "profit":
+            profit = await get_user_profit(telegram_user)
+            text = f"📈 *Your Total Profit*\n\nTotal: ${profit:.2f} USDT"
             await query.message.edit_text(
                 text,
                 parse_mode='Markdown',
@@ -222,6 +241,8 @@ async def handle_callback(update: Update):
                     reply_markup=get_main_menu()
                 )
 
+        
+
         elif query.data == "support":
             support_username = "@AlgoAceSupport"
             text = (
@@ -239,6 +260,23 @@ async def handle_callback(update: Update):
                 parse_mode='Markdown',
                 reply_markup=InlineKeyboardMarkup(keyboard)
             )
+
+        elif query.data == "copy_trading":
+            support_username = "@AlgoAceSupport"
+            text = (
+                "🛟 *Copy Trading Option?*\n\n"
+                f"Contact our support team directly: {support_username}\n\n"
+                "Our team typically responds within 24 hours."
+            )
+            keyboard = [[InlineKeyboardButton("Contact Support", url=f"https://t.me/{support_username[1:]}")]]
+            await query.message.edit_text(
+                text,
+                parse_mode='Markdown',
+                reply_markup=InlineKeyboardMarkup(keyboard)
+            )
+
+        
+
 
         elif query.data == "history":
             try:

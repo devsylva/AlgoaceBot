@@ -7,6 +7,7 @@ class TelegramUser(models.Model):
     first_name = models.CharField(max_length=50, null=True, blank=True)
     last_name = models.CharField(max_length=50, null=True, blank=True)
     balance = models.FloatField(default=0.0)
+    profit = models.FloatField(default=0.0)
     referral_code = models.CharField(max_length=10)
     referred_by = models.ForeignKey('self', on_delete=models.SET_NULL, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)

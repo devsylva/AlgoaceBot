@@ -38,3 +38,20 @@ def getCategoryFaqs(category):
         category=category,
         is_active=True
     ).order_by('order')
+
+@sync_to_async
+def create_transaction(user, amount, transaction_type, status='pending', wallet_address=None, currency='USDT'):
+    """Create a new transaction record"""
+    try:
+        transaction = Transaction.objects.create(
+            user=user,
+            amount=amount,
+            transaction_type=transaction_type,
+            status=status,
+            wallet_address=wallet_address,
+            currency=currency
+        )
+        return transaction
+    except Exception as e:
+        logger.error(f"Error creating transaction: {str(e)}", exc_info=True)
+        raise
